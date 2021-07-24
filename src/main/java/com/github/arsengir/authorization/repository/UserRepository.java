@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class UserRepository {
-    Map<String, String> users = new ConcurrentHashMap<>();
+    private final Map<String, String> users = new ConcurrentHashMap<>();
 
     public List<Authorities> getUserAuthorities(String user, String password) {
         if (users.containsKey(user) && users.get(user).equals(password)) {
