@@ -6,17 +6,15 @@ import com.github.arsengir.authorization.model.User;
 import com.github.arsengir.authorization.service.AuthorizationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@Validated
 public class AuthorizationController {
     private final AuthorizationService service;
 
@@ -35,8 +33,8 @@ public class AuthorizationController {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<String> handleUserMANVE(ConstraintViolationException e) {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleUserMANVE(MethodArgumentNotValidException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
